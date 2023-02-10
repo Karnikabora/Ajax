@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Fetch</h1>
+    <button id="one">click 1</button>
+    <button id="two">click 2</button>
+    <button id="three">click 3</button>
+    <div id="output"></div>
+</body>
+<script>
+    document.getElementById("one").addEventListener("click", print());
+function print() {
+  fetch("abc.txt")
+    .then((res) => res.text())
+    .then((data) => {
+      console.log(data);
+      document.getElementById("output").innerHTML = data;
+    })
+    .catch((error) => console.error(error));
+}
+document.getElementById("two").addEventListener("click", printjson());
+function printjson() {
+  fetch("file.json")
+    .then((res) => res.json())
+    .then((data) => {
+      console.log(data);
+
+      let output = "";
+      data.forEach(function (post) {
+        output += `<li>${post.title}:${post.body}</li>`;
+      });
+      document.getElementById("output").innerHTML = output;
+    })
+    .catch((error) => console.error(error));
+}
+
+function printApi() {
+  fetch("https://jsonplaceholder.typicode.com/todos")
+    .then((res) => res.json())
+    .then((data) => {
+      console.log(data);
+
+      let output = "";
+      data.forEach(function (post) {
+        output += `<li>${post.title}:${post.id}</li>`;
+      });
+      document.getElementById("output").innerHTML = output;
+    })
+    .catch((error) => console.error(error));
+}
+
+</script>
+</html>
